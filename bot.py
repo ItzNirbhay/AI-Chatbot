@@ -83,7 +83,15 @@ def tree_to_code(tree, feature_names):
             else:
                 symptoms_present.append(name)
                 recurse(tree_.children_right[node], depth + 1)
-        
+        else:
+            present_disease = print_disease(tree_.value[node])
+            print( "You may have " +  present_disease )
+            red_cols = reduced_data.columns 
+            symptoms_given = red_cols[reduced_data.loc[present_disease].values[0].nonzero()]
+            print("symptoms present  " + str(list(symptoms_present)))
+            print("symptoms given "  +  str(list(symptoms_given)) )  
+            confidence_level = (1.0*len(symptoms_present))/len(symptoms_given)
+            print("confidence level is " + str(confidence_level))
 
     recurse(0, 1)
 
